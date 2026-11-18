@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floservice · Construcción marítima y obra civil</title>
+<meta name="description" content="Servicios Integrales Flo Service SpA. Construcción marítima, pontones, astilleros, obra civil, hormigones, radieres, tuberías y carpintería en la Región de Los Lagos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#06070a;
+  --ink-2:#0c0e12;
+  --panel:#111419;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.14);
+  --text:#e9ecef;
+  --muted:#8b939c;
+  --silver:#c9ced4;
+  --gold:#e0b04a;
+  --gold-2:#f5d98a;
+  --gold-3:#a8782a;
+  --gold-grad:linear-gradient(120deg,#f7df98 0%,#e0b04a 45%,#a8782a 100%);
+  --silver-grad:linear-gradient(120deg,#ffffff 0%,#c9ced4 50%,#7d848c 100%);
+  --sea:#4fb6c9;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:"Inter Tight",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg,canvas{display:block}
+.mono{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.silver-text{background:var(--silver-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- propuesta banner ---------- */
+.proposal{position:fixed;right:18px;bottom:18px;z-index:80;display:flex;align-items:center;gap:12px;padding:9px 10px 9px 16px;border:1px solid var(--line-2);background:rgba(12,14,18,.82);backdrop-filter:blur(14px);border-radius:999px;font-size:13px;color:var(--silver);white-space:nowrap;max-width:calc(100vw - 24px)}
+.proposal .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(224,176,74,.18);animation:pulse 2s infinite}
+.proposal span.t{overflow:hidden;text-overflow:ellipsis}
+.proposal button{background:none;border:1px solid var(--line-2);color:var(--muted);width:26px;height:26px;border-radius:50%;cursor:pointer;flex:none}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(224,176,74,0)}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:70;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);transition:background .4s,border-color .4s,padding .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(6,7,10,.72);backdrop-filter:blur(16px);border-color:var(--line);padding-top:12px;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:38px;height:38px}
+.brand .wm{display:flex;flex-direction:column;line-height:1}
+.brand .wm b{font-family:Sora;font-weight:800;font-size:19px;letter-spacing:.06em}
+.brand .wm b i{font-style:normal;font-weight:300}
+.brand .wm small{font-family:"JetBrains Mono";font-size:9px;letter-spacing:.28em;color:var(--gold);margin-top:5px}
+.nav ul{display:flex;gap:34px;list-style:none;font-size:14px;color:var(--silver)}
+.nav ul a{position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.01em;transition:transform .3s var(--ease),box-shadow .3s,background .3s;cursor:pointer;border:0}
+.btn-gold{background:var(--gold-grad);color:#14100a;box-shadow:0 8px 30px -8px rgba(224,176,74,.55)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(224,176,74,.7)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--text);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+.btn svg{width:16px;height:16px}
+.burger{display:none;background:none;border:1px solid var(--line-2);width:42px;height:42px;border-radius:50%;color:var(--text);cursor:pointer}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end;padding:0 var(--pad) 120px}
+#sonar{position:absolute;inset:0;width:100%;height:100%}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 30%,transparent 0%,rgba(6,7,10,.35) 55%,var(--ink) 100%);pointer-events:none;z-index:1}
+.hero-grid{position:absolute;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:96px 96px;mask-image:radial-gradient(70% 60% at 60% 40%,#000 0%,transparent 75%);opacity:.5}
+.hero-inner{position:relative;z-index:2;max-width:1180px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold);margin-bottom:28px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+.hero h1{font-family:Sora;font-weight:700;font-size:clamp(46px,8.4vw,128px);line-height:.95;letter-spacing:-.035em}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+.hero h1 .line:nth-child(3) span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.hero-sub{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;margin-top:40px;opacity:0;animation:fade 1s .7s forwards}
+.hero-sub p{max-width:520px;color:var(--silver);font-size:clamp(16px,1.4vw,19px)}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+@keyframes fade{to{opacity:1}}
+.hud{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:34px;display:flex;justify-content:space-between;gap:20px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;opacity:0;animation:fade 1s 1s forwards}
+.hud .live{color:var(--gold)}
+.scroll-cue{display:flex;align-items:center;gap:10px}
+.scroll-cue i{width:1px;height:26px;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- manifesto ---------- */
+section{position:relative}
+.manifesto{padding:clamp(120px,18vw,240px) var(--pad);max-width:1400px;margin:0 auto}
+.manifesto .mono{color:var(--gold);margin-bottom:36px;display:block}
+.manifesto p.big{font-family:Sora;font-weight:600;font-size:clamp(32px,5vw,74px);line-height:1.08;letter-spacing:-.025em}
+.manifesto p.big .w{color:rgba(255,255,255,.13);transition:color .5s}
+.manifesto p.big .w.on{color:var(--text)}
+.manifesto p.big .w.g.on{color:var(--gold)}
+
+/* ---------- split mar / tierra ---------- */
+.split-head{padding:0 var(--pad) 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.h2{font-family:Sora;font-weight:700;font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.03em}
+.split-head p{max-width:420px;color:var(--muted)}
+.split{display:flex;height:min(86vh,820px);margin:0 var(--pad);border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--ink-2)}
+.half{position:relative;flex:1;transition:flex 1s var(--ease);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,3.4vw,52px)}
+.half+.half{border-left:1px solid var(--line)}
+.split:hover .half{flex:.7}
+.split .half:hover,.split .half.active{flex:1.6}
+.half canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.half::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,14,18,0) 30%,rgba(12,14,18,.92) 100%);pointer-events:none}
+.half>*:not(canvas){position:relative;z-index:2}
+.half .tag{position:absolute;top:clamp(24px,3vw,44px);left:clamp(24px,3.4vw,52px);display:flex;gap:10px;align-items:center;color:var(--silver)}
+.half .tag em{font-style:normal;color:var(--gold)}
+.half h3{font-family:Sora;font-weight:800;font-size:clamp(54px,9vw,150px);line-height:.85;letter-spacing:-.05em;white-space:nowrap}
+.half .desc{max-width:440px;color:var(--silver);margin-top:18px;opacity:.85}
+.half ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;max-height:0;opacity:0;transition:max-height .8s var(--ease),opacity .6s}
+.half:hover ul,.half.active ul{max-height:260px;opacity:1}
+.half li{padding:8px 14px;border:1px solid var(--line-2);border-radius:999px;font-size:14px;background:rgba(6,7,10,.5);backdrop-filter:blur(6px)}
+.half.mar li{border-color:rgba(79,182,201,.35)}
+.half.tierra li{border-color:rgba(224,176,74,.35)}
+
+/* ---------- index de servicios ---------- */
+.services{padding:clamp(120px,14vw,200px) var(--pad)}
+.services .top{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:70px;align-items:end}
+.services .top p{color:var(--muted);max-width:460px;justify-self:end}
+.svc-list{list-style:none;border-top:1px solid var(--line)}
+.svc{position:relative;display:grid;grid-template-columns:90px 1.2fr 1fr 40px;align-items:center;gap:24px;padding:30px 0;border-bottom:1px solid var(--line);cursor:default;transition:padding .5s var(--ease)}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(224,176,74,.09),transparent 70%);opacity:0;transition:opacity .5s}
+.svc:hover::before{opacity:1}
+.svc:hover{padding-left:18px}
+.svc .n{color:var(--muted)}
+.svc h4{font-family:Sora;font-weight:600;font-size:clamp(24px,2.8vw,40px);letter-spacing:-.02em;line-height:1.05}
+.svc p{color:var(--muted);font-size:15px}
+.svc .arr{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:all .4s var(--ease)}
+.svc:hover .arr{background:var(--gold);border-color:var(--gold);color:#14100a;transform:rotate(-45deg)}
+.svc .k{display:inline-block;margin-left:10px;padding:3px 8px;border-radius:6px;font-size:10px;vertical-align:middle}
+.k.mar{color:var(--sea);border:1px solid rgba(79,182,201,.4)}
+.k.tierra{color:var(--gold);border:1px solid rgba(224,176,74,.4)}
+.cursor-preview{position:fixed;z-index:60;width:300px;height:210px;border-radius:16px;overflow:hidden;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.8) rotate(-4deg);transition:opacity .35s,transform .45s var(--ease);border:1px solid var(--line-2);box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.cursor-preview.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-2deg)}
+
+/* placeholder "blueprint" para fotos */
+.ph{position:relative;width:100%;height:100%;background:
+  radial-gradient(120% 90% at 20% 10%,rgba(224,176,74,.16),transparent 55%),
+  radial-gradient(90% 80% at 90% 100%,rgba(79,182,201,.14),transparent 60%),
+  #0d1014;overflow:hidden}
+.ph::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px}
+.ph svg.draw{position:absolute;inset:12% 10% 22% 10%;width:80%;height:66%;stroke:var(--silver);stroke-width:1.2;fill:none;opacity:.55}
+.ph .lbl{position:absolute;left:16px;right:16px;bottom:14px;display:flex;justify-content:space-between;align-items:center;color:var(--silver);gap:10px}
+.ph .lbl .pend{color:var(--gold)}
+
+/* ---------- proyectos (horizontal) ---------- */
+.work{height:340vh}
+.work-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.work-head{display:flex;justify-content:space-between;align-items:flex-end;padding:0 var(--pad);margin-bottom:44px;gap:30px}
+.work-head p{color:var(--muted);max-width:380px}
+.progress{height:1px;background:var(--line);margin:0 var(--pad) 40px;position:relative}
+.progress i{position:absolute;left:0;top:0;height:1px;width:0;background:var(--gold-grad)}
+.track{display:flex;gap:28px;padding:0 var(--pad);will-change:transform}
+.proj{flex:none;width:min(62vw,820px);}
+.proj:nth-child(even){width:min(42vw,560px);margin-top:70px}
+.proj .frame{height:min(54vh,520px);border-radius:22px;overflow:hidden;border:1px solid var(--line);transition:transform .8s var(--ease)}
+.proj:hover .frame{transform:scale(.985)}
+.proj .meta{display:flex;justify-content:space-between;margin-top:18px;gap:20px}
+.proj .meta h5{font-family:Sora;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.proj .meta span{color:var(--muted)}
+
+/* ---------- proceso ---------- */
+.process{padding:clamp(120px,14vw,200px) var(--pad);display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(40px,7vw,120px)}
+.process .left{position:sticky;top:120px;align-self:start}
+.process .left p{color:var(--muted);margin-top:24px;max-width:400px}
+.steps{position:relative;padding-left:46px}
+.steps .rail{position:absolute;left:10px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.steps .rail i{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold-grad);box-shadow:0 0 12px var(--gold)}
+.step{position:relative;padding:0 0 90px}
+.step:last-child{padding-bottom:0}
+.step .node{position:absolute;left:-46px;top:4px;width:21px;height:21px;border-radius:50%;border:1px solid var(--line-2);background:var(--ink);transition:all .5s}
+.step.on .node{border-color:var(--gold);background:var(--gold);box-shadow:0 0 0 6px rgba(224,176,74,.15)}
+.step .mono{color:var(--muted)}
+.step.on .mono{color:var(--gold)}
+.step h4{font-family:Sora;font-size:clamp(26px,3vw,40px);font-weight:600;letter-spacing:-.02em;margin:10px 0 12px;transition:color .5s;color:rgba(255,255,255,.35)}
+.step.on h4{color:var(--text)}
+.step p{color:var(--muted);max-width:520px}
+
+/* ---------- confianza ---------- */
+.trust{margin:0 var(--pad);border:1px solid var(--line);border-radius:28px;display:grid;grid-template-columns:1.2fr repeat(3,1fr);overflow:hidden;background:var(--ink-2)}
+.trust div{padding:clamp(28px,4vw,56px);position:relative}
+.trust div+div{border-left:1px solid var(--line)}
+.trust svg{width:34px;height:34px;stroke:var(--gold);fill:none;stroke-width:1.4;margin-bottom:34px}
+.trust h5{font-family:Sora;font-size:22px;font-weight:600;margin-bottom:10px;letter-spacing:-.01em}
+.trust p{color:var(--muted);font-size:15px}
+.trust .stat{background:radial-gradient(120% 100% at 0% 0%,rgba(224,176,74,.12),transparent 60%)}
+.trust .num{display:block;font-family:Sora;font-weight:800;font-size:clamp(72px,8vw,120px);line-height:.9;letter-spacing:-.05em;margin-bottom:18px}
+.wa{position:fixed;left:18px;bottom:18px;z-index:80;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;box-shadow:0 10px 30px -6px rgba(37,211,102,.55);transition:transform .3s var(--ease)}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:28px;height:28px}
+
+/* ---------- contacto ---------- */
+.contact{padding:clamp(120px,14vw,200px) var(--pad) 80px;display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(40px,6vw,100px);align-items:start}
+.contact .big{font-family:Sora;font-weight:700;font-size:clamp(44px,7vw,108px);line-height:.92;letter-spacing:-.04em}
+.contact .info{margin-top:44px;display:grid;gap:18px;color:var(--silver)}
+.contact .info div{display:flex;gap:14px;align-items:center}
+.contact .info .mono{color:var(--muted);width:92px}
+form{border:1px solid var(--line);border-radius:24px;padding:clamp(24px,3vw,40px);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0))}
+.field{position:relative;margin-bottom:22px}
+.field input,.field textarea,.field select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-2);color:var(--text);font:inherit;padding:22px 0 10px;outline:none;transition:border-color .3s;border-radius:0;appearance:none}
+.field select{cursor:pointer}
+.field select option{background:var(--panel)}
+.field textarea{resize:vertical;min-height:90px}
+.field label{position:absolute;left:0;top:22px;color:var(--muted);pointer-events:none;transition:all .3s var(--ease)}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold)}
+.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label,.field select+label{top:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 26px}
+.chips label{cursor:pointer}
+.chips input{display:none}
+.chips span{display:inline-block;padding:8px 14px;border:1px solid var(--line-2);border-radius:999px;font-size:14px;color:var(--silver);transition:all .25s}
+.chips input:checked+span{background:var(--gold);border-color:var(--gold);color:#14100a}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.form-foot small{color:var(--muted);font-size:13px}
+.ok{display:none;margin-top:18px;padding:14px 16px;border-radius:12px;border:1px solid rgba(224,176,74,.4);color:var(--gold-2);font-size:14px}
+.ok.show{display:block}
+
+footer{border-top:1px solid var(--line);padding:40px var(--pad) 110px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+footer .atenia a{color:var(--silver);border-bottom:1px solid var(--line-2)}
+footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- mobile ---------- */
+.mnav{position:fixed;inset:0;z-index:65;background:rgba(6,7,10,.96);backdrop-filter:blur(20px);display:flex;flex-direction:column;justify-content:center;padding:var(--pad);gap:8px;opacity:0;pointer-events:none;transition:opacity .4s}
+.mnav.open{opacity:1;pointer-events:auto}
+.mnav a{font-family:Sora;font-size:44px;font-weight:700;letter-spacing:-.03em;padding:6px 0;border-bottom:1px solid var(--line)}
+.mnav .btn{margin-top:30px;align-self:flex-start;font-size:16px}
+
+@media (max-width:980px){
+  .nav ul,.nav .btn-gold{display:none}
+  .burger{display:grid;place-items:center}
+  .services .top,.process,.contact{grid-template-columns:1fr}
+  .services .top p{justify-self:start}
+  .svc{grid-template-columns:54px 1fr 40px}
+  .svc p{display:none}
+  .process .left{position:relative;top:0}
+  .trust{grid-template-columns:1fr}
+  .trust div+div{border-left:0;border-top:1px solid var(--line)}
+  .cursor-preview{display:none}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .hero{padding-bottom:110px}
+  .hud .hide-m{display:none}
+  .split{flex-direction:column;height:auto}
+  .half{min-height:440px;flex:none!important}
+  .half+.half{border-left:0;border-top:1px solid var(--line)}
+  .half ul{max-height:400px;opacity:1}
+  .half h3{font-size:clamp(64px,20vw,110px)}
+  .work{height:auto}
+  .work-sticky{position:relative;height:auto;padding:110px 0}
+  .work-head{flex-direction:column;align-items:flex-start}
+  .progress{display:none}
+  .track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+  .track::-webkit-scrollbar{display:none}
+  .proj,.proj:nth-child(even){width:82vw;margin-top:0;scroll-snap-align:center}
+  .proj .frame{height:56vw;min-height:260px}
+  .proposal{bottom:12px;right:12px;left:84px;font-size:12px}
+  .wa{left:12px;bottom:10px;width:52px;height:52px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Marca provisoria (el logo definitivo se reemplaza al recibir los archivos sin marca de agua) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7df98"/><stop offset=".5" stop-color="#e0b04a"/><stop offset="1" stop-color="#a8782a"/></linearGradient>
+    <linearGradient id="gSilver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#c9ced4"/><stop offset="1" stop-color="#7d848c"/></linearGradient>
+    <symbol id="mark" viewBox="0 0 48 48">
+      <path d="M24 3 42 13.5v21L24 45 6 34.5v-21z" fill="none" stroke="url(#gSilver)" stroke-width="2"/>
+      <path d="M12 29c3-3 6-3 9 0s6 3 9 0 6-3 6-3" fill="none" stroke="url(#gGold)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M17 22V15h14M17 18.5h9" fill="none" stroke="url(#gGold)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="Floservice inicio">
+    <svg><use href="#mark"/></svg>
+    <span class="wm"><b>FLO<i>SERVICE</i></b><small>SERVICIOS INTEGRALES</small></span>
+  </a>
+  <ul>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#proceso">Cómo trabajamos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="btn btn-gold">Cotizar obra
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+  <button class="burger" id="burger" aria-label="Abrir menú">
+    <svg width="18" height="18" viewBox="0 0 18 18" stroke="currentColor" stroke-width="1.6"><path d="M2 6h14M2 12h14"/></svg>
+  </button>
+</header>
+
+<nav class="mnav" id="mnav">
+  <a href="#servicios">Servicios</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#proceso">Cómo trabajamos</a>
+  <a href="#contacto">Contacto</a>
+  <a href="#contacto" class="btn btn-gold">Cotizar obra</a>
+</nav>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <canvas id="sonar"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="eyebrow mono">Construcción marítima · Obra civil · Región de Los Lagos</div>
+    <h1>
+      <span class="line"><span>Construimos</span></span>
+      <span class="line"><span>donde el mar</span></span>
+      <span class="line"><span class="gold-text">exige más.</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p>Pontones, astilleros y construcciones marinas, junto a obra civil, hormigones, radieres, gasfitería y carpintería. Más de 5 años de trayectoria. Un solo equipo, de la orilla al agua.</p>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn btn-gold">Solicitar cotización
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a href="https://wa.me/56921606314?text=Hola%20Floservice%2C%20quiero%20cotizar%20una%20obra" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <div class="hud mono">
+    <span><span class="live">●</span>&nbsp; Base de operaciones · Puerto Varas</span>
+    <span class="hide-m">+5 años de trayectoria</span><span class="hide-m">41°19′ S · 72°59′ O</span>
+    <span class="hide-m" id="clock">--:--</span>
+    <span class="scroll-cue"><i></i>Scroll</span>
+  </div>
+</section>
+
+<!-- ================= MANIFIESTO ================= -->
+<section class="manifesto">
+  <span class="mono">— Quiénes somos</span>
+  <p class="big" id="manifesto">Trabajamos donde otros no llegan: sobre el agua, en la orilla y en tierra firme. Un mismo equipo responsable de cada obra, desde la primera visita hasta la entrega final.</p>
+</section>
+
+<!-- ================= MAR / TIERRA ================= -->
+<section id="servicios">
+  <div class="split-head reveal">
+    <h2 class="h2">Dos frentes.<br><span class="silver-text">Una sola empresa.</span></h2>
+    <p>Pasa el cursor (o toca) cada frente para ver lo que hacemos. Floservice se mueve con la misma solvencia en el mar y en tierra.</p>
+  </div>
+  <div class="split reveal" id="split">
+    <article class="half mar" tabindex="0">
+      <canvas data-mode="sea"></canvas>
+      <div class="tag mono"><em>01</em> Frente marítimo</div>
+      <h3 class="silver-text">MAR</h3>
+      <p class="desc">Construcción y mantención de estructuras en el agua para astilleros, centros y operaciones marítimas del sur de Chile.</p>
+      <ul>
+        <li>Astilleros</li><li>Pontones</li><li>Construcciones marinas</li><li>Estructuras en borde costero</li>
+      </ul>
+    </article>
+    <article class="half tierra" tabindex="0">
+      <canvas data-mode="land"></canvas>
+      <div class="tag mono"><em>02</em> Frente terrestre</div>
+      <h3 class="gold-text">TIERRA</h3>
+      <p class="desc">Obra civil y servicios generales de construcción, con la misma exigencia que pide una obra en el mar.</p>
+      <ul>
+        <li>Obras civiles</li><li>Hormigones</li><li>Radieres</li><li>Gasfitería</li><li>Tuberías</li><li>Carpintería</li><li>Cambio de ventanas</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- ================= ÍNDICE DE SERVICIOS ================= -->
+<section class="services">
+  <div class="top reveal">
+    <h2 class="h2">Todo lo que<br>construimos.</h2>
+    <p>Un listado claro de nuestros servicios. Cada uno se cotiza a la medida de la obra, tras una visita técnica.</p>
+  </div>
+  <ol class="svc-list" id="svcList">
+    <li class="svc reveal" data-ph="pontoon"><span class="n mono">01</span><h4>Pontones<span class="k mar mono">Mar</span></h4><p>Construcción, reparación y mantención de pontones.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="ship"><span class="n mono">02</span><h4>Astilleros<span class="k mar mono">Mar</span></h4><p>Trabajos de construcción y apoyo en astilleros.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="pier"><span class="n mono">03</span><h4>Construcciones marinas<span class="k mar mono">Mar</span></h4><p>Estructuras y obras en el agua y el borde costero.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="building"><span class="n mono">04</span><h4>Obras civiles<span class="k tierra mono">Tierra</span></h4><p>Ejecución de obras civiles de distinta escala.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="slab"><span class="n mono">05</span><h4>Hormigones y radieres<span class="k tierra mono">Tierra</span></h4><p>Fundaciones, losas y radieres de hormigón.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="pipe"><span class="n mono">06</span><h4>Gasfitería y tuberías<span class="k tierra mono">Tierra</span></h4><p>Instalación y reparación de redes de agua y tuberías.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="wood"><span class="n mono">07</span><h4>Carpintería<span class="k tierra mono">Tierra</span></h4><p>Carpintería de obra y terminaciones.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="window"><span class="n mono">08</span><h4>Cambio de ventanas<span class="k tierra mono">Tierra</span></h4><p>Retiro e instalación de ventanas.</p><span class="arr">↗</span></li>
+  </ol>
+</section>
+
+<!-- ================= PROYECTOS ================= -->
+<section class="work" id="proyectos">
+  <div class="work-sticky">
+    <div class="work-head">
+      <h2 class="h2">Obras que<br><span class="gold-text">hablan por nosotros.</span></h2>
+      <p>Una selección de trabajos reales de Floservice. <span class="mono" style="color:var(--gold)">Fotos en carga</span></p>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+    <div class="track" id="track">
+      <figure class="proj"><div class="frame" data-ph="pontoon"></div><figcaption class="meta"><h5>Proyecto 01 · Pontón</h5><span class="mono">Mar</span></figcaption></figure>
+      <figure class="proj"><div class="frame" data-ph="slab"></div><figcaption class="meta"><h5>Proyecto 02 · Radier</h5><span class="mono">Tierra</span></figcaption></figure>
+      <figure class="proj"><div class="frame" data-ph="ship"></div><figcaption class="meta"><h5>Proyecto 03 · Astillero</h5><span class="mono">Mar</span></figcaption></figure>
+      <figure class="proj"><div class="frame" data-ph="pipe"></div><figcaption class="meta"><h5>Proyecto 04 · Tuberías</h5><span class="mono">Tierra</span></figcaption></figure>
+      <figure class="proj"><div class="frame" data-ph="pier"></div><figcaption class="meta"><h5>Proyecto 05 · Construcción marina</h5><span class="mono">Mar</span></figcaption></figure>
+      <figure class="proj"><div class="frame" data-ph="wood"></div><figcaption class="meta"><h5>Proyecto 06 · Carpintería</h5><span class="mono">Tierra</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESO ================= -->
+<section class="process" id="proceso">
+  <div class="left reveal">
+    <span class="mono" style="color:var(--gold)">— Cómo trabajamos</span>
+    <h2 class="h2" style="margin-top:22px">Del primer<br>contacto a<br>la entrega.</h2>
+    <p>Un proceso simple y transparente, para que siempre sepa en qué etapa está su obra.</p>
+  </div>
+  <div class="steps" id="steps">
+    <div class="rail"><i id="rail"></i></div>
+    <div class="step"><span class="node"></span><span class="mono">Etapa 01</span><h4>Visita técnica</h4><p>Vamos a terreno, revisamos la obra y entendemos lo que necesita, en el agua o en tierra.</p></div>
+    <div class="step"><span class="node"></span><span class="mono">Etapa 02</span><h4>Cotización clara</h4><p>Le entregamos una propuesta detallada, con alcance, plazos y valores bien definidos.</p></div>
+    <div class="step"><span class="node"></span><span class="mono">Etapa 03</span><h4>Ejecución</h4><p>Nuestro equipo ejecuta la obra y lo mantiene informado del avance.</p></div>
+    <div class="step"><span class="node"></span><span class="mono">Etapa 04</span><h4>Entrega</h4><p>Revisamos el trabajo terminado junto a usted y entregamos la obra lista para operar.</p></div>
+  </div>
+</section>
+
+<!-- ================= CONFIANZA ================= -->
+<section class="trust reveal">
+  <div class="stat"><span class="num gold-text">+5</span><h5>Años de trayectoria</h5><p>Ejecutando obras en el mar y en tierra en el sur de Chile.</p></div>
+  <div>
+    <svg viewBox="0 0 34 34"><path d="M4 22c4-4 8-4 12 0s8 4 13 0"/><path d="M4 28c4-4 8-4 12 0s8 4 13 0"/><path d="M17 4v12M11 10h12"/></svg>
+    <h5>Mar y tierra</h5>
+    <p>Construcción marítima y obra civil con un mismo equipo y un solo interlocutor.</p>
+  </div>
+  <div>
+    <svg viewBox="0 0 34 34"><circle cx="17" cy="14" r="6"/><path d="M17 30s-10-8-10-16a10 10 0 0 1 20 0c0 8-10 16-10 16z"/></svg>
+    <h5>Del sur de Chile</h5>
+    <p>Con base en Puerto Varas, cerca de las obras y de quienes las necesitan.</p>
+  </div>
+  <div>
+    <svg viewBox="0 0 34 34"><rect x="5" y="7" width="24" height="20" rx="2"/><path d="M5 13h24M11 4v6M23 4v6M10 19h6"/></svg>
+    <h5>Servicio integral</h5>
+    <p>Desde la visita técnica hasta la entrega, sin intermediarios.</p>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="contact" id="contacto">
+  <div class="reveal">
+    <span class="mono" style="color:var(--gold)">— Contacto</span>
+    <h2 class="big" style="margin-top:24px">¿Tiene una<br>obra en <span class="gold-text">mente?</span></h2>
+    <div class="info">
+      <div><span class="mono">Correo</span><a href="mailto:jmunoz@floservice.cl">jmunoz@floservice.cl</a></div>
+      <div><span class="mono">WhatsApp</span><a href="https://wa.me/56921606314" style="color:var(--gold)">+56 9 2160 6314</a></div>
+      <div><span class="mono">Base</span><span>Puerto Varas, Región de Los Lagos</span></div>
+    </div>
+  </div>
+  <form id="form" class="reveal" novalidate>
+    <div class="field"><input id="f-nombre" placeholder=" " required><label for="f-nombre">Nombre</label></div>
+    <div class="field"><input id="f-empresa" placeholder=" "><label for="f-empresa">Empresa</label></div>
+    <div class="field"><input id="f-tel" type="tel" placeholder=" " required><label for="f-tel">Teléfono</label></div>
+    <span class="mono" style="color:var(--muted)">Tipo de obra</span>
+    <div class="chips">
+      <label><input type="checkbox" value="Pontones"><span>Pontones</span></label>
+      <label><input type="checkbox" value="Astilleros"><span>Astilleros</span></label>
+      <label><input type="checkbox" value="Construcción marina"><span>Construcción marina</span></label>
+      <label><input type="checkbox" value="Obra civil"><span>Obra civil</span></label>
+      <label><input type="checkbox" value="Hormigón / radier"><span>Hormigón / radier</span></label>
+      <label><input type="checkbox" value="Gasfitería / tuberías"><span>Gasfitería / tuberías</span></label>
+      <label><input type="checkbox" value="Carpintería"><span>Carpintería</span></label>
+      <label><input type="checkbox" value="Ventanas"><span>Ventanas</span></label>
+    </div>
+    <div class="field"><textarea id="f-msg" placeholder=" "></textarea><label for="f-msg">Cuéntenos de su obra</label></div>
+    <div class="form-foot">
+      <small>Respondemos a la brevedad.</small>
+      <button class="btn btn-gold" type="submit">Enviar solicitud
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+    </div>
+    <div class="ok" id="ok"></div>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <div>
+    <div class="brand" style="margin-bottom:14px"><svg style="width:30px;height:30px"><use href="#mark"/></svg><span class="wm"><b style="font-size:15px">FLO<i>SERVICE</i></b></span></div>
+    Servicios Integrales Flo Service SpA · Puerto Varas, Chile
+  </div>
+  <div class="atenia">© <span id="yr"></span> Floservice · Diseño y desarrollo por <a href="https://www.atenia.cl">ATENIA</a></div>
+</footer>
+
+<div class="cursor-preview" id="cprev"></div>
+<a class="wa" href="https://wa.me/56921606314?text=Hola%20Floservice%2C%20quiero%20cotizar%20una%20obra" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg></a>
+
+<div class="proposal" id="proposal">
+  <span class="dot"></span><span class="t">Propuesta de diseño por <b style="color:var(--text)">Atenia</b> · logo y fotos reales en carga</span>
+  <button aria-label="Cerrar" onclick="this.parentNode.remove()">×</button>
+</div>
+
+<script>
+(()=>{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* nav */
+const nav=$('#nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+const mnav=$('#mnav');
+$('#burger').onclick=()=>mnav.classList.toggle('open');
+$$('#mnav a').forEach(a=>a.onclick=()=>mnav.classList.remove('open'));
+
+/* reloj HUD */
+const clk=$('#clock');
+const tick=()=>{try{clk.textContent=new Intl.DateTimeFormat('es-CL',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'America/Santiago'}).format(new Date())+' CLT'}catch(e){}};
+tick();setInterval(tick,1000);
+$('#yr').textContent=new Date().getFullYear();
+
+/* ---------- HERO: sonar / batimetría ---------- */
+const cv=$('#sonar'),cx=cv.getContext('2d');
+let W,H,DPR,mx=.65,my=.4,tmx=.65,tmy=.4;
+function size(){DPR=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0)}
+size();addEventListener('resize',size);
+addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth;tmy=e.clientY/innerHeight},{passive:true});
+function noise(x,y,t){return Math.sin(x*1.7+t)*.5+Math.sin(y*2.3-t*.8)*.35+Math.sin((x+y)*3.1+t*.6)*.2+Math.sin(Math.hypot(x-.5,y-.5)*9-t*1.2)*.25}
+let t0=performance.now();
+function hero(now){
+  const t=Math.max(0,(now-t0)/1000)*(reduce?0:1);
+  mx+=(tmx-mx)*.04;my+=(tmy-my)*.04;
+  cx.clearRect(0,0,W,H);
+  const lines=Math.round(H/16);
+  for(let i=0;i<lines;i++){
+    const yb=i/lines;
+    cx.beginPath();
+    for(let x=0;x<=W;x+=8){
+      const xn=x/W;
+      const d=Math.hypot(xn-mx,(yb-my)*1.2);
+      const bump=Math.exp(-d*d*14)*38;
+      const y=yb*H+noise(xn*2,yb*2,t*.35)*18-bump;
+      x?cx.lineTo(x,y):cx.moveTo(x,y);
+    }
+    const a=.05+.22*Math.exp(-Math.pow((yb-my)*3,2));
+    const g=i%6===0;
+    cx.strokeStyle=g?`rgba(224,176,74,${a*1.6})`:`rgba(201,206,212,${a})`;
+    cx.lineWidth=g?1.1:.7;
+    cx.stroke();
+  }
+  // anillo de sonar
+  const R=((t*90)%(Math.max(W,H)*.8));
+  cx.beginPath();cx.arc(mx*W,my*H,R,0,Math.PI*2);
+  cx.strokeStyle=`rgba(224,176,74,${.35*(1-R/(Math.max(W,H)*.8))})`;cx.lineWidth=1;cx.stroke();
+  cx.beginPath();cx.arc(mx*W,my*H,3,0,Math.PI*2);cx.fillStyle='#e0b04a';cx.fill();
+  if(!reduce||t===0)requestAnimationFrame(hero);
+}
+requestAnimationFrame(hero);
+
+/* ---------- MAR / TIERRA canvases ---------- */
+$$('.half canvas').forEach(c=>{
+  const x=c.getContext('2d');const mode=c.dataset.mode;let w,h;
+  const rs=()=>{const d=Math.min(devicePixelRatio||1,2);w=c.clientWidth;h=c.clientHeight;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)};
+  rs();addEventListener('resize',rs);new ResizeObserver(rs).observe(c);
+  const st=performance.now();
+  (function draw(n){
+    const t=Math.max(0,(n-st)/1000)*(reduce?0:1);x.clearRect(0,0,w,h);
+    if(mode==='sea'){
+      for(let i=0;i<26;i++){
+        const yb=h*.18+i*(h*.75/26);x.beginPath();
+        for(let px=0;px<=w;px+=6){const y=yb+Math.sin(px*.012+t*1.2+i*.5)*(6+i*.5)+Math.sin(px*.03-t*.7)*3;px?x.lineTo(px,y):x.moveTo(px,y)}
+        x.strokeStyle=`rgba(79,182,201,${.05+i*.012})`;x.lineWidth=1;x.stroke();
+      }
+    }else{
+      const s=34,off=(t*12)%s;
+      x.strokeStyle='rgba(224,176,74,.10)';x.lineWidth=1;
+      for(let gx=-s;gx<w+s;gx+=s){x.beginPath();x.moveTo(gx+off,0);x.lineTo(gx+off-h*.4,h);x.stroke()}
+      x.strokeStyle='rgba(201,206,212,.08)';
+      for(let gy=0;gy<h;gy+=s){x.beginPath();x.moveTo(0,gy);x.lineTo(w,gy);x.stroke()}
+      // "planta" estructural
+      x.strokeStyle='rgba(224,176,74,.35)';x.lineWidth=1.2;
+      const bx=w*.55,by=h*.18,bw=Math.min(w*.32,260),bh=bw*.75;
+      x.strokeRect(bx,by,bw,bh);x.beginPath();x.moveTo(bx,by+bh*.5);x.lineTo(bx+bw,by+bh*.5);x.moveTo(bx+bw*.4,by);x.lineTo(bx+bw*.4,by+bh);x.stroke();
+      const p=(Math.sin(t)+1)/2;x.fillStyle='rgba(224,176,74,.8)';x.fillRect(bx+bw*p-2,by-6,4,4);
+    }
+    requestAnimationFrame(draw);
+  })(performance.now());
+});
+$$('.half').forEach(hf=>{hf.addEventListener('click',()=>{$$('.half').forEach(o=>o.classList.toggle('active',o===hf))})});
+
+/* ---------- placeholders "blueprint" ---------- */
+const DRAW={
+  pontoon:'<path d="M5 60h90M10 60l6 14h68l6-14M18 60V40h64v20M30 40V28h40v12M10 82c8-4 14-4 22 0s14 4 22 0 14-4 22 0 14-4 16-2"/>',
+  ship:'<path d="M10 62h80l-10 16H22zM30 62V36h34v26M44 36V18M44 18l18 10-18 4M8 86c10-4 18-4 28 0s18 4 28 0 18-4 28 0"/>',
+  pier:'<path d="M4 44h92M12 44v40M30 44v40M48 44v40M66 44v40M84 44v40M4 70c10-4 18-4 28 0s18 4 28 0 18-4 36 0M60 44V26h22v18"/>',
+  building:'<path d="M14 84V30l26-14 26 14v54M66 84V46h22v38M8 84h86M24 44h8M48 44h8M24 60h8M48 60h8M72 58h8M72 70h8"/>',
+  slab:'<path d="M8 64l36-16 48 12-36 18zM8 64v8l48 14v-8M92 60v8L56 86M24 57l40 10M40 50l40 10"/>',
+  pipe:'<path d="M6 40h40a10 10 0 0 1 10 10v30M6 52h34a6 6 0 0 1 6 6v22M56 66h38M46 66h10M14 36v20M40 36v20M70 60v12"/>',
+  wood:'<path d="M10 76l70-50M18 82l70-50M10 76l8 6M80 26l8 6M30 62l8 6M50 48l8 6M14 30h40v10H14zM18 30v10M26 30v10M34 30v10"/>',
+  window:'<path d="M26 14h48v70H26zM26 49h48M50 14v70M20 84h60M60 30l8-8M34 64l10-10"/>'
+};
+function ph(kind,label){
+  return `<div class="ph"><svg class="draw" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">${DRAW[kind]||''}</svg><div class="lbl mono"><span>${label}</span><span class="pend">Foto real pendiente</span></div></div>`;
+}
+$$('.frame').forEach(f=>f.innerHTML=ph(f.dataset.ph,f.closest('.proj').querySelector('h5').textContent.split('·')[1].trim()));
+
+/* ---------- cursor preview en servicios ---------- */
+const cp=$('#cprev');let cpx=0,cpy=0,tx=0,ty=0;
+$$('.svc').forEach(s=>{
+  s.addEventListener('pointerenter',()=>{cp.innerHTML=ph(s.dataset.ph,s.querySelector('h4').firstChild.textContent);cp.classList.add('on')});
+  s.addEventListener('pointerleave',()=>cp.classList.remove('on'));
+});
+addEventListener('pointermove',e=>{tx=e.clientX+170;ty=e.clientY},{passive:true});
+(function mv(){cpx+=(tx-cpx)*.15;cpy+=(ty-cpy)*.15;cp.style.left=cpx+'px';cp.style.top=cpy+'px';requestAnimationFrame(mv)})();
+
+/* ---------- manifiesto palabra por palabra ---------- */
+const man=$('#manifesto');
+const gold=['agua,','orilla','tierra','firme.','entrega','final.'];
+man.innerHTML=man.textContent.split(' ').map(w=>`<span class="w${gold.includes(w)?' g':''}">${w}</span>`).join(' ');
+const words=$$('#manifesto .w');
+
+/* ---------- scroll engine ---------- */
+const work=$('.work'),track=$('#track'),prog=$('#prog');
+const steps=$$('.step'),rail=$('#rail'),stepsBox=$('#steps');
+function onScroll(){
+  const vh=innerHeight;
+  // manifiesto
+  const r=man.getBoundingClientRect();
+  const p=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));
+  const k=Math.floor(p*words.length);
+  words.forEach((w,i)=>w.classList.toggle('on',i<k));
+  // horizontal
+  if(innerWidth>760){
+    const wr=work.getBoundingClientRect();
+    const total=work.offsetHeight-vh;
+    const q=Math.min(1,Math.max(0,-wr.top/total));
+    const max=track.scrollWidth-innerWidth;
+    track.style.transform=`translate3d(${-q*max}px,0,0)`;
+    prog.style.width=(q*100)+'%';
+  }
+  // proceso
+  const sr=stepsBox.getBoundingClientRect();
+  const sp=Math.min(1,Math.max(0,(vh*.6-sr.top)/sr.height));
+  rail.style.height=(sp*100)+'%';
+  steps.forEach(s=>{const b=s.getBoundingClientRect();s.classList.toggle('on',b.top<vh*.6)});
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+
+/* formulario */
+$('#form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=$('#f-nombre').value.trim(),t=$('#f-tel').value.trim();
+  const ok=$('#ok');
+  if(!n||!t){ok.textContent='Por favor complete su nombre y teléfono.';ok.classList.add('show');return}
+  const tipos=$$('.chips input:checked').map(i=>i.value).join(', ')||'No indicado';
+  const body=`Nombre: ${encodeURIComponent(n)}%0D%0AEmpresa: ${encodeURIComponent($('#f-empresa').value)}%0D%0ATeléfono: ${encodeURIComponent(t)}%0D%0ATipo de obra: ${encodeURIComponent(tipos)}%0D%0A%0D%0A${encodeURIComponent($('#f-msg').value)}`;
+  ok.innerHTML=`Gracias, ${n.split(' ')[0]}. Se abrirá su correo con la solicitud lista para enviar a <b>jmunoz@floservice.cl</b>.`;
+  ok.classList.add('show');
+  location.href=`mailto:jmunoz@floservice.cl?subject=${encodeURIComponent('Solicitud de cotización · '+n)}&body=${body}`;
+});
+})();
+</script>
+</body>
+</html>
