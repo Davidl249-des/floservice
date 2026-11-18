@@ -5,3 +5,5 @@ deployment:
     - /bin/cp index.html $DEPLOYPATH
     - /bin/mkdir -p ${DEPLOYPATH}img
     - /bin/cp -R img/. ${DEPLOYPATH}img/
+    - /bin/mkdir -p ${DEPLOYPATH}firma
+    - /bin/cp -R firma/. ${DEPLOYPATH}firma/
