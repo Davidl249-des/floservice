@@ -14,5 +14,6 @@ Diseño y desarrollo: **ATENIA**.
 - Fotos reales de trabajos para la galería de proyectos y vistas previas de servicios.
 
 ## Publicación
+- Despliegue: cPanel → Git Version Control (repo clonado en el servidor). Tras cada push: *Update from Remote* y *Deploy HEAD Commit*. Las tareas están en `.cpanel.yml` (copia a `public_html`).
 - Dominio: floservice.cl (NIC Chile) → hosting AltaHosting (cPanel, plan Starter).
 - Correo: jmunoz@floservice.cl
