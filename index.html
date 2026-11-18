@@ -285,10 +285,6 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
 .half:hover .bg,.half.active .bg{opacity:.75;transform:scale(1)}
 .half.mar .bg{background-image:url(img/ia/frente-mar.jpg)}
 .half.tierra .bg{background-image:url(img/ia/frente-tierra.jpg)}
-.band{position:relative;height:clamp(420px,70vh,720px);overflow:hidden;display:flex;align-items:flex-end;padding:0 var(--pad) clamp(40px,6vw,80px)}
-.band .bimg{position:absolute;inset:-12% 0;background:url(img/ia/banda-equipo.jpg) center/cover no-repeat;will-change:transform}
-.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink) 0%,rgba(6,7,10,.15) 35%,rgba(6,7,10,.25) 65%,var(--ink) 100%)}
-.band h3{position:relative;z-index:2;font-family:Sora;font-weight:800;font-size:clamp(44px,8vw,128px);line-height:.9;letter-spacing:-.045em;max-width:1100px}
 .process .left .pimg{margin-top:36px;border-radius:20px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;max-width:380px;background:#0d1014 url(img/ia/proceso-visita.jpg) center/cover}
 .trust{background:linear-gradient(rgba(12,14,18,.9),rgba(12,14,18,.9)),url(img/ia/textura-acero.jpg) center/cover,var(--ink-2)}
 .contact{position:relative}
@@ -464,9 +460,6 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
     <li class="svc reveal" data-ph="pipe" data-real="img/lamor-estanque.jpg"><span class="n mono">11</span><h4>Estanques y manifold<span class="k tierra mono">Tierra</span></h4><p>Fabricación de estanques y manifold en acero.</p><span class="arr">↗</span></li>
   </ol>
 </section>
-
-<!-- ================= BANDA ================= -->
-<section class="band" aria-hidden="true"><div class="bimg" id="bandimg"></div><h3>De la orilla<br><span class="gold-text">al agua.</span></h3></section>
 
 <!-- ================= CASO REAL ================= -->
 <section class="case" id="caso">
@@ -806,8 +799,6 @@ function onScroll(){
     track.style.transform=`translate3d(${-q*max}px,0,0)`;
     prog.style.width=(q*100)+'%';
   }
-  // banda parallax
-  const bi=document.getElementById('bandimg');if(bi&&!reduce){const br=bi.parentNode.getBoundingClientRect();bi.style.transform=`translate3d(0,${(br.top+br.height/2-vh/2)*-.12}px,0)`}
   // proceso
   const sr=stepsBox.getBoundingClientRect();
   const sp=Math.min(1,Math.max(0,(vh*.6-sr.top)/sr.height));
