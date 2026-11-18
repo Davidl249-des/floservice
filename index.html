@@ -241,6 +241,10 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
 .ba .lb{position:absolute;top:18px;padding:7px 12px;border-radius:999px;background:rgba(6,7,10,.7);backdrop-filter:blur(8px);color:var(--silver)}
 .ba .lb.l{left:18px}.ba .lb.r{right:18px;color:var(--gold-2)}
 .stepsimg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:44px var(--pad) 0}
+.stepsimg.five{grid-template-columns:repeat(5,1fr)}
+.case.rev .txt{order:2}
+.case.rev .ba{order:1}
+.case + .stepsimg + .case{padding-top:clamp(100px,12vw,170px)}
 .stepsimg figure{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;cursor:pointer}
 .stepsimg img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .6s;filter:saturate(.85) brightness(.85)}
 .stepsimg figure:hover img{transform:scale(1.05);filter:none}
@@ -252,7 +256,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
 .lightbox.on{display:grid}
 .lightbox img{max-width:100%;max-height:88vh;border-radius:16px}
 .lightbox button{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:none;color:var(--text);font-size:22px;cursor:pointer}
-@media (max-width:980px){.case{grid-template-columns:1fr}.stepsimg{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:980px){.case{grid-template-columns:1fr}.case.rev .txt{order:0}.stepsimg,.stepsimg.five{grid-template-columns:repeat(2,1fr)}}
 
 
 /* ---------- imágenes IA (ambientación) ---------- */
@@ -340,7 +344,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
   </a>
   <ul>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#caso">Caso real</a></li>
+    <li><a href="#caso">Casos reales</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
     <li><a href="#proceso">Cómo trabajamos</a></li>
     <li><a href="#contacto">Contacto</a></li>
@@ -354,7 +358,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
 
 <nav class="mnav" id="mnav">
   <a href="#servicios">Servicios</a>
-  <a href="#caso">Caso real</a>
+  <a href="#caso">Casos reales</a>
   <a href="#proyectos">Proyectos</a>
   <a href="#proceso">Cómo trabajamos</a>
   <a href="#contacto">Contacto</a>
@@ -376,7 +380,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
       <span class="line"><span class="gold-text">exige más.</span></span>
     </h1>
     <div class="hero-sub">
-      <p>Pontones, astilleros y construcciones marinas, junto a obra civil, hormigones, radieres, gasfitería y carpintería. Más de 5 años de trayectoria. Un solo equipo, de la orilla al agua.</p>
+      <p>Pontones, astilleros y construcciones marinas, junto a obra civil, hormigones, radieres, gasfitería, carpintería y bombas de combustible. Más de 5 años de trayectoria. Un solo equipo, de la orilla al agua.</p>
       <div class="hero-ctas">
         <a href="#contacto" class="btn btn-gold">Solicitar cotización
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
@@ -422,7 +426,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
       <h3 class="gold-text">TIERRA</h3>
       <p class="desc">Obra civil y servicios generales de construcción, con la misma exigencia que pide una obra en el mar.</p>
       <ul>
-        <li>Obras civiles</li><li>Hormigones</li><li>Radieres</li><li>Gasfitería</li><li>Tuberías</li><li>Carpintería</li><li>Cambio de ventanas</li>
+        <li>Obras civiles</li><li>Hormigones</li><li>Radieres</li><li>Gasfitería</li><li>Tuberías</li><li>Carpintería</li><li>Cambio de ventanas</li><li>Bombas de combustible</li>
       </ul>
     </article>
   </div>
@@ -443,6 +447,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
     <li class="svc reveal" data-ph="pipe"><span class="n mono">06</span><h4>Gasfitería y tuberías<span class="k tierra mono">Tierra</span></h4><p>Instalación y reparación de redes de agua y tuberías.</p><span class="arr">↗</span></li>
     <li class="svc reveal" data-ph="wood"><span class="n mono">07</span><h4>Carpintería<span class="k tierra mono">Tierra</span></h4><p>Carpintería de obra y terminaciones.</p><span class="arr">↗</span></li>
     <li class="svc reveal" data-ph="window"><span class="n mono">08</span><h4>Cambio de ventanas<span class="k tierra mono">Tierra</span></h4><p>Retiro e instalación de ventanas.</p><span class="arr">↗</span></li>
+    <li class="svc reveal" data-ph="pump" data-real="img/bomba-despues.jpg"><span class="n mono">09</span><h4>Bombas de combustible<span class="k tierra mono">Tierra</span></h4><p>Mantención e instalación de bombas de combustible.</p><span class="arr">↗</span></li>
   </ol>
 </section>
 
@@ -452,12 +457,12 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
 <!-- ================= CASO REAL ================= -->
 <section class="case" id="caso">
   <div class="txt reveal">
-    <span class="mono" style="color:var(--gold)">— Caso real · Trabajo Floservice</span>
+    <span class="mono" style="color:var(--gold)">— Caso real 01 · Trabajo Floservice</span>
     <h2 class="h2" style="margin-top:22px">Renovación de<br><span class="gold-text">pasillo interior.</span></h2>
     <p>Recuperamos un pasillo con el piso de acero dañado por la corrosión: estructura de madera para nivelar, base de terciado y terminación en piso vinílico. Arrastre la línea dorada para ver el antes y el después.</p>
     <div class="tags"><span>Carpintería</span><span>Nivelación</span><span>Piso vinílico</span></div>
   </div>
-  <div class="ba reveal" id="ba">
+  <div class="ba reveal">
     <img src="img/pasillo-antes.jpg" alt="Pasillo antes de la renovación, piso de acero con corrosión" loading="lazy">
     <img class="after" src="img/pasillo-terminado.jpg" alt="Pasillo terminado con piso vinílico" loading="lazy">
     <span class="lb l mono">Antes</span><span class="lb r mono">Después</span>
@@ -471,6 +476,28 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
   <figure data-src="img/pasillo-terminado.jpg"><img src="img/pasillo-terminado.jpg" alt="Piso vinílico terminado" loading="lazy"><figcaption><span class="mono">04</span><b>Terminación</b></figcaption></figure>
 </div>
 
+<section class="case rev" id="caso-bomba">
+  <div class="txt reveal">
+    <span class="mono" style="color:var(--gold)">— Caso real 02 · Trabajo Floservice</span>
+    <h2 class="h2" style="margin-top:22px">Mantención e instalación<br><span class="gold-text">de bomba de combustible.</span></h2>
+    <p>Retiramos la bomba, la desarmamos y la mantuvimos en taller: revisión del sistema eléctrico, limpieza, pintura y armado. Después la reinstalamos en su cámara, lista para operar. Arrastre la línea dorada para comparar.</p>
+    <div class="tags"><span>Bombas de combustible</span><span>Mantención</span><span>Instalación</span></div>
+  </div>
+  <div class="ba reveal">
+    <img src="img/bomba-antes.jpg" alt="Bomba de combustible antes de la mantención" loading="lazy">
+    <img class="after" src="img/bomba-despues.jpg" alt="Bomba de combustible después de la mantención y pintura" loading="lazy">
+    <span class="lb l mono">Antes</span><span class="lb r mono">Después</span>
+    <div class="handle"><i>⇆</i></div>
+  </div>
+</section>
+<div class="stepsimg five reveal">
+  <figure data-src="img/bomba-desmontada.jpg"><img src="img/bomba-desmontada.jpg" alt="Bomba desmontada" loading="lazy"><figcaption><span class="mono">01</span><b>Retiro y diagnóstico</b></figcaption></figure>
+  <figure data-src="img/bomba-taller.jpg"><img src="img/bomba-taller.jpg" alt="Mantención en taller" loading="lazy"><figcaption><span class="mono">02</span><b>Mantención en taller</b></figcaption></figure>
+  <figure data-src="img/bomba-electrico.jpg"><img src="img/bomba-electrico.jpg" alt="Revisión del sistema eléctrico" loading="lazy"><figcaption><span class="mono">03</span><b>Revisión eléctrica</b></figcaption></figure>
+  <figure data-src="img/bomba-detalle.jpg"><img src="img/bomba-detalle.jpg" alt="Bomba pintada y armada" loading="lazy"><figcaption><span class="mono">04</span><b>Pintura y armado</b></figcaption></figure>
+  <figure data-src="img/bomba-instalada.jpg"><img src="img/bomba-instalada.jpg" alt="Bomba instalada en su cámara" loading="lazy"><figcaption><span class="mono">05</span><b>Instalación</b></figcaption></figure>
+</div>
+
 <!-- ================= PROYECTOS ================= -->
 <section class="work" id="proyectos">
   <div class="work-sticky">
@@ -481,7 +508,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
     <div class="progress"><i id="prog"></i></div>
     <div class="track" id="track">
       <figure class="proj"><div class="frame real"><img src="img/pasillo-terminado.jpg" alt="Renovación de pasillo interior terminada" loading="lazy"></div><figcaption class="meta"><h5>Proyecto 01 · Renovación de pasillo</h5><span class="mono">Carpintería</span></figcaption></figure>
-      <figure class="proj"><div class="frame" data-ph="slab"></div><figcaption class="meta"><h5>Proyecto 02 · Radier</h5><span class="mono">Tierra</span></figcaption></figure>
+      <figure class="proj"><div class="frame real"><img src="img/bomba-instalada.jpg" alt="Bomba de combustible instalada" loading="lazy"></div><figcaption class="meta"><h5>Proyecto 02 · Bomba de combustible</h5><span class="mono">Mantención</span></figcaption></figure>
       <figure class="proj"><div class="frame" data-ph="ship"></div><figcaption class="meta"><h5>Proyecto 03 · Astillero</h5><span class="mono">Mar</span></figcaption></figure>
       <figure class="proj"><div class="frame" data-ph="pipe"></div><figcaption class="meta"><h5>Proyecto 04 · Tuberías</h5><span class="mono">Tierra</span></figcaption></figure>
       <figure class="proj"><div class="frame" data-ph="pier"></div><figcaption class="meta"><h5>Proyecto 05 · Construcción marina</h5><span class="mono">Mar</span></figcaption></figure>
@@ -552,6 +579,7 @@ footer .atenia a:hover{color:var(--gold);border-color:var(--gold)}
       <label><input type="checkbox" value="Gasfitería / tuberías"><span>Gasfitería / tuberías</span></label>
       <label><input type="checkbox" value="Carpintería"><span>Carpintería</span></label>
       <label><input type="checkbox" value="Ventanas"><span>Ventanas</span></label>
+      <label><input type="checkbox" value="Bombas de combustible"><span>Bombas de combustible</span></label>
     </div>
     <div class="field"><textarea id="f-msg" placeholder=" "></textarea><label for="f-msg">Cuéntenos de su obra</label></div>
     <div class="form-foot">
@@ -689,7 +717,7 @@ const SVCIMG={pontoon:'servicio-pontones.jpg',ship:'servicio-astilleros.jpg',pie
 const imgOk={};Object.values(SVCIMG).forEach(f=>{const i=new Image();i.onload=()=>imgOk[f]=1;i.src='img/ia/'+f});
 const cp=$('#cprev');let cpx=0,cpy=0,tx=0,ty=0;
 $$('.svc').forEach(s=>{
-  s.addEventListener('pointerenter',()=>{const im=SVCIMG[s.dataset.ph];cp.innerHTML=im&&imgOk[im]?`<img src="img/ia/${im}" alt="" style="width:100%;height:100%;object-fit:cover">`:ph(s.dataset.ph,s.querySelector('h4').firstChild.textContent);cp.classList.add('on')});
+  s.addEventListener('pointerenter',()=>{const im=SVCIMG[s.dataset.ph];cp.innerHTML=s.dataset.real?`<img src="${s.dataset.real}" alt="" style="width:100%;height:100%;object-fit:cover">`:im&&imgOk[im]?`<img src="img/ia/${im}" alt="" style="width:100%;height:100%;object-fit:cover">`:ph(s.dataset.ph,s.querySelector('h4').firstChild.textContent);cp.classList.add('on')});
   s.addEventListener('pointerleave',()=>cp.classList.remove('on'));
 });
 addEventListener('pointermove',e=>{tx=e.clientX+170;ty=e.clientY},{passive:true});
@@ -736,15 +764,14 @@ $$('.reveal').forEach(el=>io.observe(el));
 
 
 /* comparador antes/después */
-const ba=$('#ba');
-if(ba){let drag=false;
+$$('.ba').forEach(ba=>{let drag=false;
   const set=e=>{const r=ba.getBoundingClientRect();const x=Math.min(98,Math.max(2,((e.clientX-r.left)/r.width)*100));ba.style.setProperty('--x',x+'%')};
   ba.addEventListener('pointerdown',e=>{drag=true;set(e)});
   addEventListener('pointerup',()=>drag=false);
   ba.addEventListener('pointermove',e=>{if(drag||e.pointerType==='mouse')set(e)});
   let a=0;const intro=()=>{a+=.035;ba.style.setProperty('--x',(50+Math.sin(a)*22)+'%');if(a<Math.PI*2)requestAnimationFrame(intro);else ba.style.setProperty('--x','50%')};
   new IntersectionObserver((es,o)=>{if(es[0].isIntersecting&&!reduce){intro();o.disconnect()}},{threshold:.5}).observe(ba);
-}
+});
 /* lightbox */
 const lb=document.createElement('div');lb.className='lightbox';lb.innerHTML='<img alt=""><button aria-label="Cerrar">×</button>';document.body.appendChild(lb);
 lb.onclick=()=>lb.classList.remove('on');
